@@ -10,7 +10,7 @@
 #include "Mesh.h"
 //#include <experimental/filesystem>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = std::filesystem;
 
 void Test(S2X_Option* opt)
 {

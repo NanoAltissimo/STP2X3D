@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.12.2)
 
 project(STP2X3D)
 
-set (ENV{CSF_OCCTIncludePath} /usr/local/include/opencascade)
-set (ENV{CSF_OCCTLibPath} /usr/local/lib)
+set (ENV{CSF_OCCTIncludePath} /usr/include/opencascade)
+set (ENV{CSF_OCCTLibPath} /usr/lib64/opencascade)
 
 foreach (EnvVar IN ITEMS CSF_OCCTIncludePath CSF_OCCTLibPath)
   if ("$ENV{${EnvVar}}" STREQUAL "")
@@ -43,6 +43,8 @@ add_executable(STP2X3D
   Tessellator.h
   X3D_Writer.cpp
   X3D_Writer.h
+  GDT_Item.cpp
+  GDT_Item.h
 )
 # Additional include directories
 set_property(TARGET STP2X3D
@@ -54,56 +56,7 @@ set_property(TARGET STP2X3D
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE $ENV{CSF_OCCTIncludePath})
-target_link_libraries(${PROJECT_NAME} stdc++fs
-    TKBinL
-    TKBin
-    TKBinTObj
-    TKBinXCAF
-    TKBool
-    TKBO
-    TKBRep
-    TKCAF
-    TKCDF
-    TKernel
-    TKFeat
-    TKFillet
-    TKG2d
-    TKG3d
-    TKGeomAlgo
-    TKGeomBase
-    TKHLR
-    TKIGES
-    TKLCAF
-    TKMath
-    TKMesh
-    TKMeshVS
-    TKOffset
-    TKOpenGl
-    TKPrim
-    TKRWMesh
-    TKService
-    TKShHealing
-    TKStdL
-    TKStd
-    TKSTEP209
-    TKSTEPAttr
-    TKSTEPBase
-    TKSTEP
-    TKSTL
-    TKTObj
-    TKTopAlgo
-    TKV3d
-    TKVCAF
-    TKVRML
-    TKXCAF
-    TKXDEIGES
-    TKXDESTEP
-    TKXMesh
-    TKXmlL
-    TKXml
-    TKXmlTObj
-    TKXmlXCAF
-    TKXSBase )
+target_link_libraries(${PROJECT_NAME} stdc++fs ${OpenCascade_LIBRARIES})
 
 # Preprocessor definitions
 target_compile_definitions(STP2X3D PRIVATE

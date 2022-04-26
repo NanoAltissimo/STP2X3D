@@ -52,14 +52,15 @@ void X3D_Writer::WriteX3D(Model*& model)
 	ss_x3d << CloseHeader();
 
 	// Write X3D file
-	wstring filePath = m_opt->Output();
+	wstring wfilePath = m_opt->Output();
+	string filePath(wfilePath.begin(), wfilePath.end());
 
 	wofstream wof;
 
 	// This line is required to write Unicode characters.
-	wof.imbue(locale(locale::empty(), new codecvt_utf8<wchar_t, 0x10ffff, generate_header>)); 
+	wof.imbue(locale(std::locale(), new codecvt_utf8<wchar_t, 0x10ffff, generate_header>)); 
 	
-	wof.open(filePath.c_str());
+	wof.open(filePath);
 	wof << ss_x3d.str().c_str();
 	wof.close();
 

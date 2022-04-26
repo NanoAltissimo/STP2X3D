@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GDT_Item.h"
 #include "Mesh.h"
+#include <algorithm>
 
 GDT_Item::GDT_Item(const wstring& name)
 	:m_name(name)
@@ -15,7 +16,7 @@ GDT_Item::~GDT_Item(void)
 void GDT_Item::AddShape(const TopoDS_Shape& shape)
 {
 	m_shapes.push_back(shape);
-	m_shapes.erase(unique(m_shapes.begin(), m_shapes.end()), m_shapes.end());
+	m_shapes.erase(std::unique(m_shapes.begin(), m_shapes.end()), m_shapes.end());
 }
 
 void GDT_Item::Clear(void)
